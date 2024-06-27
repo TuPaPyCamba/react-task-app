@@ -1,7 +1,7 @@
 import { TaskList } from "./components/TaskList";
 import TaskForm from "./components/TaskForm";
 import { useEffect, useState } from "react";
-import { dataTasks } from "./dataTasks";
+import { dataTasks } from "./data/dataTasks";
 
 function App() {
 
@@ -19,10 +19,14 @@ function App() {
   }])
   }
 
+  function deleteTask(taskId){
+    setTask(tasks.filter(task => task.id !== taskId))
+  }
+
   return (
     <>
       <TaskForm createTask={createTask} />
-      <TaskList tasks={tasks} />
+      <TaskList tasks={tasks} deleteTask={deleteTask} />
     </>
   );
 }
