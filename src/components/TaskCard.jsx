@@ -1,4 +1,9 @@
-function TaskCard({task, deleteTask}) {
+import { useContext } from "react"
+import { TaskContext } from "../context/TaskContext"
+
+function  TaskCard({task, deleteTask}) {
+
+    useContext(TaskContext)
 
     return (
         <div>
