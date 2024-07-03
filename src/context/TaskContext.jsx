@@ -1,17 +1,39 @@
-import { createContext } from "react";
+import { createContext, useState, useEffect } from "react";
+import { dataTasks } from "../data/dataTasks";
 
-export const TaskContext = createContext()
-
-
+export const TaskContext = createContext();
 
 export function TaskContextProvider(props) {
+    const [tasks, setTask] = useState([]);
 
-    let x = 20
+    function createTask(task) {
+        setTask([
+            ...tasks,
+            {
+                id: tasks.length,
+                titulo: task.titulo,
+                descripcion: task.descripcion,
+            },
+        ]);
+    }
+
+    function deleteTask(taskId) {
+        setTask(tasks.filter((task) => task.id !== taskId));
+    }
+
+    useEffect(() => {
+        setTask(dataTasks);
+    }, []);
 
     return (
-    <TaskContext.Provider value={x}>
-        {props.children}
-    </TaskContext.Provider>
-    )
+        <TaskContext.Provider
+            value={{
+                tasks,
+                deleteTask,
+                createTask,
+            }}
+        >
+            {props.children}
+        </TaskContext.Provider>
+    );
 }
-
